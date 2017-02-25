@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<authors>Josef Ottosson</authors>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>An easy way of changing the Episerver login background/logo</description>
+		<dependencies>
+          <dependency id="EPiServer.CMS.Core" version="10.0.1" />
+        </dependencies>
+	</metadata>
+	<files>
+		<file src="readme.txt" target="Static\img\login" />
+	</files>
+</package>
