@@ -6,6 +6,7 @@
 		<authors>Josef Ottosson</authors>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>An easy way of changing the Episerver login background/logo</description>
+    <releaseNotes>Now supports Episerver 11</releaseNotes>
 	</metadata>
 	<files>
 		<file src="readme.txt" target="Static\img\login" />
