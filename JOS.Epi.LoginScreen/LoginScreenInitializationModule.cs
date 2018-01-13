@@ -54,7 +54,6 @@ namespace JOS.Epi.LoginScreen
 				return;
 			}
 
-
 			for (var i = 0; i < NumberOfStockImages; i++)
 			{
 				var image = images.Count > i ? images[i] : images.First();
@@ -67,23 +66,36 @@ namespace JOS.Epi.LoginScreen
 		private static void MapLogo(IHostingEnvironment hostingEnvironment, VirtualPathMappedProvider provider)
 		{
 			var imagesPath = GetImageFolderPath(hostingEnvironment);
-			var logoPath = Directory.GetFiles(imagesPath, "epi_login_logo.svg").FirstOrDefault();
+		    if (Directory.Exists(imagesPath))
+		    {
+		        var logoPath = Directory.GetFiles(imagesPath, "epi_login_logo.svg").FirstOrDefault();
 
-			if (string.IsNullOrWhiteSpace(logoPath))
-			{
-				return;
-			}
+		        if (string.IsNullOrWhiteSpace(logoPath))
+		        {
+		            return;
+		        }
 
-			var logoUrl = UrlifyPath(logoPath, hostingEnvironment.ApplicationPhysicalPath);
-			provider.PathMappings.Add("/Util/images/login/DXC_long.svg", logoUrl);
+		        var logoUrl = UrlifyPath(logoPath, hostingEnvironment.ApplicationPhysicalPath);
+		        provider.PathMappings.Add("/Util/images/login/DXC_long.svg", logoUrl);
+            }
+		    else
+		    {
+		        Console.WriteLine($"Path {imagesPath} does not exists.");
+            }
+			
 		}
 
 		private static IEnumerable<string> GetImages(string imagesFolderPath)
 		{
-			var extensions = new[] {".png", ".jpg", ".jpeg", ".gif"};			
-			return Directory.EnumerateFiles(imagesFolderPath, "*.*")
-				.Where(x => extensions.Contains(Path.GetExtension(x)))
-				.Take(NumberOfStockImages);
+		    if (Directory.Exists(imagesFolderPath))
+		    {
+		        var extensions = new[] { ".png", ".jpg", ".jpeg", ".gif" };
+		        return Directory.EnumerateFiles(imagesFolderPath, "*.*")
+		            .Where(x => extensions.Contains(Path.GetExtension(x)))
+		            .Take(NumberOfStockImages);
+            }
+            Console.WriteLine($"Path {imagesFolderPath} does not exists.");
+		    return Enumerable.Empty<string>();
 		}
 
 		private static string UrlifyPath(string absoluteFilePath, string applicationPhysicalPath)
